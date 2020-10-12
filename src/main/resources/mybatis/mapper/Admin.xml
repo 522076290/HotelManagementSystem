@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.www.mapper.AdminMapper">
+
+    <select id="selectAdminList"  resultType="admin">
+      select * from hotel_admin
+    </select>
+
+    <select id="selectAdminByname" resultType="admin">
+        SELECT *
+        FROM hotel_admin
+        WHERE
+        ausername=#{ausername}
+    </select>
+
+    <select id="selectAdminById" resultType="admin">
+        SELECT *
+        FROM hotel_admin
+        WHERE
+        auserid=#{auserid}
+    </select>
+
+
+    <insert id="addAdmin" useGeneratedKeys="true" keyProperty="aid" keyColumn="aid" parameterType="admin">
+        INSERT INTO
+        hotel_admin(auserid,ausername,apwd,apuis)
+        VALUES
+        (#{auserid},#{ausername},#{apwd},#{apuis})
+    </insert>
+
+
+    <delete id="deleteAdmin">
+        DELETE FROM
+        hotel_admin
+        where
+        auserid=#{auserid}
+    </delete>
+
+
+    <update id="updateAdmin" parameterType="admin">
+        update hotel_admin
+        <set>
+            <if test="auserid!=null">auserid=#{auserid},</if>
+            <if test="ausername!=null">ausername=#{ausername},</if>
+            <if test="apwd!=null">apwd=#{apwd},</if>
+            <if test="apuis!=null">apuis=#{apuis}</if>
+        </set>
+        where
+        aid=#{aid}
+    </update>
+
+</mapper>

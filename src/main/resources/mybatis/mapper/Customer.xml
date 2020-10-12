@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.www.mapper.CustomerMapper">
+
+    <select id="selectCustomerList"  resultType="customer">
+      select * from hotel_customer
+    </select>
+
+    <select id="selectCustomerById" resultType="customer">
+        SELECT *
+        FROM hotel_customer
+        WHERE
+        cid=#{cid}
+    </select>
+
+    <select id="selectCustomerByName" resultType="customer">
+        SELECT *
+        FROM hotel_customer
+        WHERE
+        cusername=#{cusername}
+    </select>
+
+    <insert id="addCustomer" useGeneratedKeys="true" keyProperty="cpk" keyColumn="cpk" parameterType="customer">
+        INSERT INTO
+        hotel_customer (cid,remark,cusername,cpwd,crealname,ctel,cdate,cidcard)
+        VALUES
+         (#{cid},#{remark},#{cusername},#{cpwd},#{crealname},#{ctel},#{cdate},#{cidcard})
+    </insert>
+
+
+    <delete id="deleteCustomer">
+        DELETE FROM
+        hotel_customer
+        where
+        cid=#{cid}
+    </delete>
+
+
+    <delete id="deleteCustomerByPk">
+        DELETE FROM
+        hotel_customer
+        where
+        cpk=#{cpk}
+    </delete>
+
+    <update id="updateCustomer" parameterType="customer">
+        update hotel_customer
+        <set>
+            <if test="cid!=null">cid=#{cid},</if>
+            <if test="remark!=null">remark=#{remark},</if>
+            <if test="cusername!=null">cusername=#{cusername},</if>
+            <if test="cpwd!=null">cpwd=#{cpwd},</if>
+            <if test="crealname!=null">crealname=#{crealname},</if>
+            <if test="ctel!=null">ctel=#{ctel},</if>
+            <if test="cdate!=null">cdate=#{cdate},</if>
+            <if test="cidcard!=null">cidcard=#{cidcard}</if>
+        </set>
+        where
+        cid=#{cid}
+    </update>
+
+</mapper>

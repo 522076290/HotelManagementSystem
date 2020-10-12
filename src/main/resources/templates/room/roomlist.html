@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店后台管理</title>
+
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        //删除房间信息
+        function removeRoom(rpk,rid){
+            $('#mymessage').html("您确认要删除["+rid+"]分店信息吗?");
+            $("#confirmbuttom").click(function(){
+                location.href="/admin/room/deleteroom?rpk="+rpk;
+            });
+            $('#messageModal').modal({
+                keyboard: true
+            })
+        }
+
+        function updateRoom(rpk){
+            location.href='/admin/room/updateroom?rpk='+rpk;
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="head"></div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">房间管理</li>
+        <li class="breadcrumb-item active" aria-current="page">房间列表</li>
+    </ol>
+</nav>
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>房间名称</th>
+                            <th>房间类型</th>
+                            <th>房间状态</th>
+                            <th>房间地址</th>
+                            <th>联络电话</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="room,roomStat : ${session.roomlist}">
+                                <td th:text="${roomStat.index+1}"></td>
+                                <td th:text="${room.rid}"></td>
+
+                                <td th:if="${room.rtypeid}=='1'">总统套房</td>
+                                <td th:if="${room.rtypeid}=='2'">豪华套房</td>
+                                <td th:if="${room.rtypeid}=='3'">高级套房</td>
+                                <td th:if="${room.rtypeid}=='4'">中级套房</td>
+                                <td th:if="${room.rtypeid}=='5'">普通套房</td>
+
+                                <td th:if="${room.state}=='a'">空置房间</td>
+                                <td th:if="${room.state}=='b'">已预订</td>
+                                <td th:if="${room.state}=='c'">退房保洁中</td>
+                                <td th:if="${room.state}=='d'">已入住</td>
+
+                                <td th:text="${room.location}"></td>
+                                <td th:text="${room.rtel}"></td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" th:onclick="updateRoom([[${room.rpk}]])"> 修 改 </button>
+                                    <button class="btn btn-danger btn-sm" th:onclick="removeRoom([[${room.rpk}]],[[${room.rid}]])"  > 删 除 </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="alert"></div>
+<div id="footer"></div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#head").load("/head");
+        $("#footer").load("/footer");
+        $("#alert").load("/alert");
+    });
+</script>
+
+</div>
+
+</body>

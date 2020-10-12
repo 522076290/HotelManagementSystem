@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店后台管理</title>
+
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="head"></div>
+
+<div class="container my-2">
+    <div class="row py-5">
+        <div class="jumbotron">
+            <h1 class="display-4">欢迎来到31酒店管理</h1>
+            <p class="lead">Dear administrator, you are welcome to visit 31 hotel management background, here is the background management interface</p>
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg col-md-3 mx-2" href='#'>订单管理</a>
+            <a class="btn btn-success btn-lg col-md-3 mx-2" href="/admin/customer/list" role="button">用户管理</a>
+            <a class="btn btn-info btn-lg col-md-3 mx-2" href='/admin/room/list'>房间管理</a>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#head").load("/head");
+            $("#footer").load("/footer");
+        });
+
+        window.onload =function() {
+            var myusername=$("#myusername").val();
+            $("#myadmin").html(myusername);
+        }
+    </script>
+
+</div>
+
+</body>

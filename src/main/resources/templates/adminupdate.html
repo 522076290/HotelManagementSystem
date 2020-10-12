@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店后台管理</title>
+
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="head"></div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">修改密码</li>
+    </ol>
+</nav>
+
+<div style="width: 30%;margin: 0px auto;">
+    <form method="post" action="/admin/checkadminupdate">
+            <input type="hidden" readonly="readonly" class="form-control" name="aid" id="formGroupaid" th:value="${session.AdminInfo.aid}">
+            <input type="hidden" readonly="readonly"  class="form-control" name="auserid" id="formGroupauserid" th:value="${session.AdminInfo.auserid}">
+            <input type="hidden" readonly="readonly" class="form-control" name="apuis" id="formGroupapuis" th:value="${session.AdminInfo.apuis}">
+        <div class="form-group"  >
+            <label for="formGroupusername">用户名</label>
+            <input type="text" readonly="readonly"  class="form-control" name="ausername" id="formGroupusername" th:value="${session.AdminInfo.ausername}" >
+        </div>
+        <div class="form-group">
+            <label for="formGrouppwd">密码</label>
+            <input type="password" class="form-control" id="formGrouppwd" name="apwd" required placeholder="请输入新密码">
+        </div>
+        <div class="form-group">
+            <label for="formGroupNewpwd">确认密码</label>
+            <input type="password" class="form-control" id="formGroupNewpwd"required placeholder="确认密码">
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="checkupdate">提交</button>
+    </form>
+</div>
+
+<div id="alert"></div>
+<div id="footer"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#head").load("/head");
+            $("#footer").load("/footer");
+            $("#alert").load("/alert");
+        });
+
+        $(function(){
+            $("#formGroupNewpwd").blur(function(){
+
+                if($("#formGrouppwd").val()!=$("#formGroupNewpwd").val()){
+                    $('#mymessage').html("两次密码不相同")
+                    $('#messageModal').modal({
+                        keyboard: true
+                    })
+                }
+            })
+        })
+
+        function checkupdate() {
+            $('#mymessage').html("是否确认修改密码")
+            $('#messageModal').modal({
+                keyboard: true
+            })
+        }
+    </script>
+
+</div>
+
+</body>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店后台管理</title>
+
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="head"></div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">房间管理</li>
+        <li class="breadcrumb-item active" aria-current="page">修改房间信息</li>
+    </ol>
+</nav>
+
+
+
+
+<!-- 房间信息息录入表单 -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <form action="/admin/room/checkroomupdate" method="post">
+            <input type="hidden" name="rpk" th:value="${updateroom.rpk}">
+            <div class="form-group">
+                <label>房间名称</label>
+                <input type="text" name="rid" class="form-control" placeholder="请输入房间名称信息" th:value="${updateroom.rid}">
+            </div>
+
+                <div class="form-group">
+                    <label>房间类型</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rtypeid" value="1" th:checked="${updateroom.rtypeid}=='1'" >
+                        <label class="form-check-label" >总统套房</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rtypeid" value="2" th:checked="${updateroom.rtypeid}=='2'" >
+                        <label class="form-check-label" >豪华套房</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rtypeid" value="3" th:checked="${updateroom.rtypeid}=='3'" >
+                        <label class="form-check-label" >高级套房</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rtypeid" value="4" th:checked="${updateroom.rtypeid}=='4'" >
+                        <label class="form-check-label" >中级套房</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rtypeid" value="5" th:checked="${updateroom.rtypeid}=='5'" >
+                        <label class="form-check-label" >普通套房</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">房间状态</label>
+                    <select class="form-control" id="exampleFormControlSelect1" name="room_status">
+                        <option value="">-请选择-</option>
+                        <option value="a" th:selected="${updateroom.state=='a'}" >空置房间</option>
+                        <option value="b" th:selected="${updateroom.state=='b'}" >已预订</option>
+                        <option value="c" th:selected="${updateroom.state=='c'}">退房保洁中</option>
+                        <option value="d" th:selected="${updateroom.state=='d'}">已入住</option>
+                    </select>
+                </div>
+
+            <div class="form-group">
+                <label>分店地址</label>
+                <input type="text" name="location" class="form-control"  placeholder="请输入房间位置信息" th:value="${updateroom.location}">
+            </div>
+            <div class="form-group">
+                <label>联络电话</label>
+                <input type="text" name="rtel" class="form-control" placeholder="请输入房间座机或手机联络信息" th:value="${updateroom.rtel}">
+            </div>
+             <div class="form-group">
+                    <label>房间备注</label>
+                    <input type="text" name="remark" class="form-control" placeholder="请输入房间备注信息" th:value="${updateroom.remark}">
+             </div>
+            <button type="submit" class="btn btn-primary">修改房间信息</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="alert"></div>
+<div id="footer"></div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#head").load("/head");
+        $("#footer").load("/footer");
+        $("#alert").load("/alert");
+    });
+</script>
+
+</div>
+
+</body>

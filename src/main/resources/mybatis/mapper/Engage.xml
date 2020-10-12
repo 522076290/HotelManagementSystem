@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.www.mapper.EngageMapper">
+
+    <select id="selectEngageList"  resultType="engage">
+      select * from hotel_engage
+    </select>
+
+    <select id="selectEngageByPk"  resultType="engage">
+      select * from hotel_engage
+      where
+      epk=#{epk}
+    </select>
+
+
+
+    <insert id="addEngage" useGeneratedKeys="true" keyProperty="epk" keyColumn="epk" parameterType="engage">
+        INSERT INTO
+        hotel_engage(cname,crealname,ctel,cidcard,rid,rlocation,patime,engtime,remark,engagemark)
+        VALUES
+        (#{cname},#{crealname},#{ctel},#{cidcard},#{rid},#{rlocation},#{patime},#{engtime},#{remark},#{engagemark})
+    </insert>
+
+
+    <delete id="deleteEngage">
+        DELETE FROM
+        hotel_engage
+        where
+        epk=#{epk}
+    </delete>
+
+
+    <update id="updateEngage" parameterType="engage">
+        update hotel_engage
+        <set>
+            <if test="cname!=null">cname=#{cname},</if>
+            <if test="crealname!=null">crealname=#{crealname},</if>
+            <if test="ctel!=null">ctel=#{ctel},</if>
+            <if test="cidcard!=null">cidcard=#{cidcard},</if>
+            <if test="rid!=null">rid=#{rid},</if>
+            <if test="rlocation!=null">rlocation=#{rlocation},</if>
+            <if test="patime!=null">patime=#{patime},</if>
+            <if test="engtime!=null">engtime=#{engtime},</if>
+            <if test="remark!=null">remark=#{remark},</if>
+            <if test="engagemark!=null">engagemark=#{engagemark},</if>
+        </set>
+        where
+        epk=#{epk}
+    </update>
+
+</mapper>

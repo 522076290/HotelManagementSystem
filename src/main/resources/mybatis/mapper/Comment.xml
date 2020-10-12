@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.www.mapper.CommentMapper">
+
+    <select id="selectCommentList"  resultType="Comment">
+      select * from hotel_comment
+    </select>
+
+
+    <insert id="addComment" useGeneratedKeys="true" keyProperty="pk" keyColumn="pk" parameterType="Comment">
+        INSERT INTO
+        hotel_comment(cname,ctel,time,comment,type)
+        VALUES
+        (#{cname},#{ctel},#{time},#{comment},#{type})
+    </insert>
+
+
+    <delete id="deleteComment">
+        DELETE FROM
+        hotel_comment
+        where
+        pk=#{pk}
+    </delete>
+
+</mapper>

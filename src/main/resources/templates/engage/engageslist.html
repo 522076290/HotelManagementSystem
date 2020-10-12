@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店后台管理</title>
+
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        //删除订单信息
+        function removeEngage(epk,id){
+            $('#mymessage').html("您确认要删除["+id+"]订单吗?");
+            $("#confirmbuttom").click(function(){
+                location.href="/admin/engage/deleteengage?epk="+epk;
+            });
+            $('#messageModal').modal({
+                keyboard: true
+            })
+        }
+
+        function updateEngage(epk){
+            location.href='/admin/engage/updateengage?epk='+epk;
+        }
+    </script>
+
+</head>
+
+<body>
+
+<div id="head"></div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">订单管理</li>
+        <li class="breadcrumb-item active" aria-current="page">订单列表</li>
+    </ol>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>用户名</th>
+                            <th>预定时间</th>
+                            <th>用户真实姓名</th>
+                            <th>用户电话</th>
+                            <th>idcard</th>
+                            <th>房间编号</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="engage,engageStat : ${session.engageslist}">
+                                <td th:text="${engageStat.index+1}"></td>
+                                <td th:text="${engage.cname}"></td>
+                                <td th:text="${engage.engtime}"></td>
+                                <td th:text="${engage.crealname}"></td>
+                                <td th:text="${engage.ctel}"></td>
+                                <td th:text="${engage.cidcard}"></td>
+                                <td th:text="${engage.rid}"></td>
+
+
+                                <td>
+                                    <button class="btn btn-danger btn-sm" th:onclick="removeEngage([[${engage.epk}]],[[${engageStat.index+1}]])"  > 删 除 </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="alert"></div>
+<div id="footer"></div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#head").load("/head");
+        $("#footer").load("/footer");
+        $("#alert").load("/alert");
+    });
+</script>
+
+</div>
+
+</body>
